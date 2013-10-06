@@ -164,35 +164,7 @@ Currently there is not a big difference but the first way looks cleaner. Also if
 * Do not make any DOM manipulations in your controllers. Use directives instead.
 * The naming of the controller is done using the controller's functionality (for example shopping card, home page, admin panel) and the substring `Ctrl` in the end. The controllers are named UpperCamelCase (`HomePageCtrl`, `ShippingCardCtrl`, `AdminPanelCtrl`, etc.).
 * The controllers should not be defined as globals (no matter AngularJS allows this, it is a bad practice to pollute the global namespace).
-* Use array syntax for controller definitions:
-
-
-
-        module.controller('MyCtrl', ['dependency1', 'dependency2', ..., 'dependencyn', function (dependency1, dependency2, ..., dependencyn) {
-          //...body
-        }]);
-
-
-Using this type of definition avoids problems with minification.
-
-* Use the original names of the controller's dependencies. This will help you produce more readable code:
-
-
-
-        module.controller('MyCtrl', ['$scope', function (s) {
-          //...body
-        }]);
-
-
-is less readable than:
-
-
-        module.controller('MyCtrl', ['$scope', function ($scope) {
-          //...body
-        }]);
-
-
-especially after the controller's body became large enough to make you scroll when you forget which was the right dependency.
+* Do not write dependency injection array annotations manually. Keep your code ceremony-free by using [ng-annotate](https://github.com/olov/ng-annotate) or [ngmin](https://github.com/btford/ngmin) in your build-step.
 * Make the controllers as skinny as possible
 * Communicate within different controllers using method invocation (possible when children wants to communicate with parent) or `$emit`, `$broadcast` and `$on` methods. The `$emit`-ed and `$broadcast`-ed messages must be reduced as much as possible.
 * Make a list of all messages which are passed using `$emit`, `$broadcast` and manage it carefully because of name collisions and possible bugs.
